@@ -58,7 +58,7 @@ $(OPENHARDWAREMONITOR_INSTALL):
 
 # ToDo: Remove this from build scrtip.
 $(OPENHARDWAREMONITOR)-setup:
-	sudo apt-get install \
+	sudo apt-get -y install \
 	    mono-complete \
 	    mono-xbuild
 

@@ -450,7 +450,7 @@ buildclean:
 
 setup:
 # librrd-dev is still needed by the python rrd package we build in our virtual environment
-	sudo apt-get install \
+	sudo apt-get -y install \
 	    build-essential \
 	    clang-$(CLANG_VERSION) \
 	    clang-format-$(CLANG_VERSION) \
@@ -488,6 +488,7 @@ setup:
 	    python3-pip \
 	    python3-venv \
 	    shellcheck \
+		software-properties-common \
 	    valgrind \
 	    zlib1g-dev
 	if type pyenv >/dev/null 2>&1 && pyenv shims --short | grep '^pipenv$$'; then \
@@ -501,10 +502,10 @@ setup:
 	    virtualenv=="$(VIRTUALENV_VERSION)" \
 	    wheel
 	if [ ! -f $$HOME/.cargo/bin/rustup ]; then \
-		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh; \
+		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y; \
 		source $$HOME/.cargo/env; \
 	fi
-	rustup target add x86_64-unknown-linux-musl
+	/root/.cargo/bin/rustup target add x86_64-unknown-linux-musl
 	$(MAKE) -C web setup
 	$(MAKE) -C omd setup
 	$(MAKE) -C omd openhardwaremonitor-setup
